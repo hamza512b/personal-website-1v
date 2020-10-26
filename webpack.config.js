@@ -1,7 +1,10 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { WebpackPluginServe: Serve } = require('webpack-plugin-serve');
+const { mode } = require("webpack-nano/argv");
+const CopyPlugin = require('copy-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 module.exports = {
     module: {
@@ -10,7 +13,26 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ['babel-loader'],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        exclude: /node_modules/,
+                        presets: ["@babel/preset-env"],
+                        plugins: ["@babel/plugin-proposal-class-properties"]
+                    }
+                }],
+            },
+            // Handlebars
+            {
+                test: /\.hbs$/,
+                use: [
+                    {
+                        loader: "handlebars-loader",
+                        options: {
+                            partialDirs: path.resolve(__dirname, "./src/components")
+                        }
+                    }
+                ],
             },
             // Scss
             {
@@ -38,26 +60,33 @@ module.exports = {
             },
         ],
     },
-    entry: {
-        main: path.resolve(__dirname, './src/index.js'),
-    },
+    entry: [
+        path.resolve(__dirname, './src/index.js'),
+        'webpack-plugin-serve/client'
+    ],
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].bundle.js',
     },
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 3000
-    },
+    watch: mode === "development",
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "!!ejs-webpack-loader!" + path.resolve(__dirname, "./src/index.ejs"),
-            filename: 'index.html'
+            template: path.resolve(__dirname, "./src/index.hbs"),
+            filename: 'index.html',
         }),
         new CopyPlugin({
             patterns: [{ from: "public", to: "./" }]
+        }),
+        new FriendlyErrorsWebpackPlugin(),
+        new Serve({
+            host: "localhost",
+            port: process.env.PORT || 3000,
+            static: "./dist",
+            liveReload: true,
+            waitForBuild: true,
+            open: true,
+            progress: false,
         })
     ]
 };
