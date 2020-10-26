@@ -6,26 +6,36 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     module: {
         rules: [
+            // JavaScript
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
+            // Scss
             {
                 test: /\.s[ac]ss$/i,
                 use: [
                     'style-loader',
                     'css-loader',
                     'sass-loader'
-                ]
+                ],
             },
+            // Files
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     'file-loader',
                 ],
+                type: 'asset/resource'
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     'file-loader',
                 ],
-            }
+                type: 'asset/inline'
+            },
         ],
     },
     entry: {
