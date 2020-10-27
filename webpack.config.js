@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    target: "web",
     module: {
         rules: [
             // JavaScript
@@ -88,6 +88,9 @@ module.exports = {
                 baseDir: [path.resolve(__dirname, './dist')]
             },
         }),
-        new FriendlyErrorsWebpackPlugin()
+        new FriendlyErrorsWebpackPlugin(),
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: false
+        })
     ]
 };
