@@ -1,12 +1,11 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { WebpackPluginServe: Serve } = require('webpack-plugin-serve');
-const { mode } = require("webpack-nano/argv");
 const CopyPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
+    target: "web",
     module: {
         rules: [
             // JavaScript
@@ -16,7 +15,6 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        exclude: /node_modules/,
                         presets: ["@babel/preset-env"],
                         plugins: ["@babel/plugin-proposal-class-properties"]
                     }
@@ -25,11 +23,13 @@ module.exports = {
             // Handlebars
             {
                 test: /\.hbs$/,
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: "handlebars-loader",
                         options: {
-                            partialDirs: path.resolve(__dirname, "./src/components")
+                            partialDirs: path.resolve(__dirname, "./src/components"),
+
                         }
                     }
                 ],
@@ -37,6 +37,7 @@ module.exports = {
             // Scss
             {
                 test: /\.s[ac]ss$/i,
+                exclude: /node_modules/,
                 use: [
                     'style-loader',
                     'css-loader',
@@ -46,6 +47,7 @@ module.exports = {
             // Files
             {
                 test: /\.(png|svg|jpg|gif)$/,
+                exclude: /node_modules/,
                 use: [
                     'file-loader',
                 ],
@@ -53,6 +55,7 @@ module.exports = {
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
+                exclude: /node_modules/,
                 use: [
                     'file-loader',
                 ],
@@ -62,31 +65,26 @@ module.exports = {
     },
     entry: [
         path.resolve(__dirname, './src/index.js'),
-        'webpack-plugin-serve/client'
     ],
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].bundle.js',
     },
-    watch: mode === "development",
     plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "./src/index.hbs"),
-            filename: 'index.html',
-        }),
         new CopyPlugin({
             patterns: [{ from: "public", to: "./" }]
         }),
-        new FriendlyErrorsWebpackPlugin(),
-        new Serve({
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "./src/index.hbs"),
+            filename: 'index.html'
+        }),
+        new BrowserSyncPlugin({
             host: "localhost",
-            port: process.env.PORT || 3000,
-            static: "./dist",
-            liveReload: true,
-            waitForBuild: true,
-            open: true,
-            progress: false,
-        })
+            port: 3000,
+            server: {
+                baseDir: [path.resolve(__dirname, './dist')]
+            },
+        }),
+        new FriendlyErrorsWebpackPlugin()
     ]
 };
