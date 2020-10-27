@@ -1,11 +1,7 @@
 import './assets/style.scss';
+import "./components/gfx/gfx"
 
-class Person {
-    name = "";
-    constructor(name) {
-        this.name = name;
-    }
-}
-
-const person = new Person("John");
-console.log(person.name);
+const loader = document.getElementById("loader");
+document.addEventListener("DOMContentLoaded", () => {
+    loader.classList.add("hidden")
+});

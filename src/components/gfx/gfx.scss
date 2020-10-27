@@ -1,0 +1,25 @@
+@keyframes floating {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-40px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+svg {
+  max-width: 500px;
+  margin: 100px auto;
+  display: block;
+  #laptop {
+    animation: floating 6s ease-in-out infinite;
+    #code {
+      path {
+        opacity: 0;
+      }
+    }
+  }
+}
