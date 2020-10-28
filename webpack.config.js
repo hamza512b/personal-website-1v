@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     module: {
@@ -42,7 +43,7 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 exclude: /node_modules/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ],
@@ -65,6 +66,11 @@ module.exports = {
                 type: 'asset/inline'
             },
         ],
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
     },
     entry: [
         path.resolve(__dirname, './src/index.js'),
@@ -91,6 +97,7 @@ module.exports = {
         new FriendlyErrorsWebpackPlugin(),
         new CleanWebpackPlugin({
             cleanStaleWebpackAssets: false
-        })
+        }),
+        new MiniCssExtractPlugin()
     ]
 };

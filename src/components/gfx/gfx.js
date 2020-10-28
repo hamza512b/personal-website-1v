@@ -1,22 +1,4 @@
-import "./gfx.scss"
 import anime, { random } from "animejs";
-
-const laptop = document.querySelector("svg #laptop");
-const code = document.querySelector("svg #code");
-
-
-// const showElement = (i) => {
-//     setTimeout(() => {
-//         const element = elements[i];
-//         element.classList.add("show");
-//     }, 2000);
-// }
-
-// const length = elements.length;
-// for (let i = 0; i < length; i++) {
-//     showElement(i);
-// }
-
 
 const animateStage = async (i) => {
     let prev = 0;
