@@ -4,13 +4,15 @@
 }
 
 body {
+  margin: 0;
   font-family: "Manrope", Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, #7BB8E5 0%, #86C1CC 100%);
-  height: 100vh;
 }
 
 // Laoder
 #loader {
+  background-color: #fff;
+  z-index: 999;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -50,5 +52,17 @@ body {
   }
   to {
     transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// Content
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 994px) {
+  .content {
+    display: block;
   }
 }

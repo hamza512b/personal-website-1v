@@ -10,16 +10,47 @@
   }
 }
 
-svg {
-  max-width: 500px;
-  margin: 100px auto;
-  display: block;
-  #laptop {
-    animation: floating 6s ease-in-out infinite;
-    #code {
-      path {
-        opacity: 0;
+.gfx {
+  position: relative;
+  padding: 20px 0;
+
+  width: 30%;
+  height: 100vh;
+
+  background: linear-gradient(180deg, #7BB8E5 0%, #86C1CC 100%);
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: -33%;
+
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+    #laptop {
+      animation: floating 6s ease-in-out infinite;
+      #code {
+        path {
+          opacity: 0;
+        }
       }
     }
   }
+}
+
+
+
+@media (max-width: 994px) {
+  .gfx {  
+    width: 100%;
+    height: auto;
+    svg {
+      position: static;
+      max-width: 500px;
+      margin: 0 auto;
+      display: block;
+  
+    }
+  }
+  
 }
