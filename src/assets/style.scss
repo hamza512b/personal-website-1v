@@ -6,6 +6,10 @@
   src: url("./fonts/Manrope-Regular.ttf") format("ttf");
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Manrope", Arial, Helvetica, sans-serif;
