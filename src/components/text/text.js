@@ -4,6 +4,10 @@ myLink.addEventListener("click", ev => {
     ev.preventDefault();
     const email = myLink.href.replace("mailto:", "");
     clip(email);
+    myLink.classList.add("active");
+    setTimeout(() => {
+        myLink.classList.remove("active");
+    }, 2000)
 });
 
 const clip = (text) => {
