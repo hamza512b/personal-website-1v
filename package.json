@@ -2,8 +2,8 @@
   "name": "hamzakhuswan",
   "version": "1.0.0",
   "description": "Hamza Khuswan personal website",
-  "private": true,
   "main": "index.js",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
