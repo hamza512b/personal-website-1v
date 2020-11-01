@@ -5,8 +5,8 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "webpack --watch",
-    "build": "webpack",
+    "start": "webpack --watch --env development",
+    "build": "webpack --env production",
     "deploy": "yarn build && gh-pages -d dist"
   },
   "dependencies": {
