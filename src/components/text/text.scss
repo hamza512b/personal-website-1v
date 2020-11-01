@@ -12,6 +12,7 @@ h1 {
 p {
   font-size: 24px;
   color: #888888;
+  margin: 5px 0;
 }
 
 a {
@@ -23,58 +24,4 @@ a {
     padding: 0 14px;
     margin: 20px auto;
   }
-}
-
-#mail-clipboard:hover {
-  position: relative;
-  &::after {
-    position: absolute;
-    top: -30%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    font-size: 16px;
-    text-align: center;
-    border-radius: 5px;
-    color: #fff;
-
-    width: 160px;
-    line-height: 20px;
-    height: 20px;
-
-    content: "copy to clipbaord";
-    background-color: #000;
-  }
-}
-
-#mail-clipboard {
-  position: relative;
-  &::after {
-    position: absolute;
-    top: -30%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    font-size: 16px;
-    text-align: center;
-    border-radius: 5px;
-    color: #fff;
-
-    width: 160px;
-    line-height: 20px;
-    height: 20px;
-  }
-}
-
-#mail-clipboard:hover::after {
-  content: "copy to clipbaord";
-  background-color: #000;
-}
-
-#mail-clipboard.active::after {
-  content: "Copied ✅";
-  background-color: #070;
-  outline: none;
 }
