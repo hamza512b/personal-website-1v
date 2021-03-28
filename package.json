@@ -9,9 +9,7 @@
     "build": "webpack --env production",
     "deploy": "yarn build && gh-pages -d dist"
   },
-  "dependencies": {
-    "animejs": "^3.2.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",

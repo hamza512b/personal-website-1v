@@ -1,39 +1,39 @@
-import anime, { random } from "animejs";
+const elements = document.getElementById("code").children;
+const length = elements.length;
 
-const animateStage = async (i) => {
-    let prev = 0;
-    await anime({
-        targets: `svg #cursor${i}`,
-        opacity: 1,
-        duration: 500,
-        loop: anime.random(1, 8),
-        easing: "linear",
-        direction: 'alternate',
-        complete: () => {
-            document.querySelector(`svg #cursor${i}`).style = "";
+// Return number between a and b
+function randomInRange(a, b) {
+    return Math.abs(Math.round(a + Math.random() * (b - a)));
+}
+
+function play_animation(i, delay) {
+    if (i < length) {
+        const element = elements[i];
+        const isCursor = element.dataset.fliker === "true";
+        setTimeout(() => {
+
+            if (isCursor) {
+                element.classList.add("flikering")
+            } else {
+                element.classList.add("visable")
+            }
+
+            play_animation(i + 1, isCursor ? 4400 : randomInRange(300, 600))
+        }, delay);
+
+    } else {
+        for (let j = 0; j < length; j++) {
+            const element = elements[j];
+            const isCursor = element.dataset.fliker === "true";
+            if (isCursor) {
+                element.classList.remove("flikering")
+            } else {
+                element.classList.remove("visable")
+            }
         }
-    }).finished;
-    await anime({
-        targets: `svg #code${i} path`,
-        opacity: 1,
-        delay: () => prev += anime.random(300, 600)
-    }).finished
+        
+        play_animation(0, 1000)
+    }
 }
 
-const clearAll = async () => {
-    await anime({
-        targets: 'svg #code path',
-        opacity: 0
-    }).finished
-}
-
-const animateAll = async () => {
-    await animateStage(1)
-    await animateStage(2)
-    await animateStage(3)
-    await clearAll();
-
-    animateAll();
-}
-
-animateAll();
+play_animation(0, 1000);
