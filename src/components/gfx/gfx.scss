@@ -53,15 +53,6 @@
   opacity: 1 !important;
 }
 
-.flikering {
-  animation: fliker 0.5s linear 0s 7 normal none !important;
-}
-
-@keyframes fliker {
-  0% {opacity: 0;}
-  0% {opacity: 1;}
-}
-
 @media (max-width: 994px) {
   .circle {
       display: none;
